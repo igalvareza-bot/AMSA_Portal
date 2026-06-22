@@ -2,3 +2,4 @@ streamlit
 bcrypt
 reportlab
 pandas
+qrcode
