@@ -10,3 +10,14 @@ CATALOGO = {
     "AMAZON": ["EC2 R5", "EC2 T3"],
     "GENERICO": ["SWITCH", "ROUTER", "SERVIDOR"]
 }
+
+def obtener_catalogo(tipo: str):
+    if tipo == "marca":
+        return list(CATALOGO.keys())
+    elif tipo == "modelo":
+        modelos = []
+        for modelos_list in CATALOGO.values():
+            modelos.extend(modelos_list)
+        return modelos
+    else:
+        return []
