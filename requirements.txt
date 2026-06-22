@@ -3,3 +3,4 @@ bcrypt
 reportlab
 pandas
 qrcode
+openpyxl
