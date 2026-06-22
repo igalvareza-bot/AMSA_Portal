@@ -5,10 +5,7 @@ import pandas as pd
 from pdf_generator import generar_pdf
 from catalogo import obtener_catalogo
 from utils import log_action
-from init_db import init_db  # inicializador de la DB
-
-# Inicializar DB al arrancar
-init_db()
+from init_db import *  # importa tu inicializador
 
 DB = "amsa.db"
 
@@ -67,7 +64,7 @@ def crear_abm_ui():
     data["ritm"] = st.text_input("RITM")
     data["tipo_equipo"] = st.selectbox("Tipo de equipo", ["Notebook", "Desktop", "Servidor"])
     data["marca"] = st.selectbox("Marca", obtener_catalogo("marca"))
-    data["modelo"] = st.text_input("Modelo")
+    data["modelo"] = st.selectbox("Modelo", obtener_catalogo("modelo"))
     data["serie"] = st.text_input("Serie")
     data["hostname"] = st.text_input("Hostname")
     data["asset"] = st.text_input("Asset")
