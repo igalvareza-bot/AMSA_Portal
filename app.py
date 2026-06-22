@@ -5,7 +5,7 @@ import pandas as pd
 from pdf_generator import generar_pdf
 from catalogo import obtener_catalogo
 from utils import log_action
-from init_db import *  # importa tu inicializador
+from init_db import *  # inicializa DB
 
 DB = "amsa.db"
 
@@ -53,7 +53,8 @@ def login_ui():
         res = check_login(user, pw)
         if res:
             st.session_state["user"] = res
-            st.experimental_rerun()
+            st.success("Login correcto, cargando menú...")
+            st.stop()
         else:
             st.error("Credenciales inválidas")
 
@@ -103,7 +104,7 @@ def main_menu():
         config_ui()
     elif choice == "Salir":
         st.session_state.clear()
-        st.experimental_rerun()
+        st.stop()
 
 # ------------------ MAIN ------------------
 
