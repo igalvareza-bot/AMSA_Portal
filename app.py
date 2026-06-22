@@ -53,8 +53,6 @@ def login_ui():
         res = check_login(user, pw)
         if res:
             st.session_state["user"] = res
-            st.session_state["logged_in"] = True
-            st.experimental_set_query_params(logged="true")  # fuerza recarga en Cloud
             st.success("Login correcto, cargando menú...")
             st.stop()
         else:
@@ -106,7 +104,6 @@ def main_menu():
         config_ui()
     elif choice == "Salir":
         st.session_state.clear()
-        st.experimental_set_query_params(logged="false")
         st.stop()
 
 # ------------------ MAIN ------------------
