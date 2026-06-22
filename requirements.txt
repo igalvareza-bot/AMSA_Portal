@@ -2,4 +2,3 @@ streamlit
 bcrypt
 reportlab
 pandas
-sqlite3
