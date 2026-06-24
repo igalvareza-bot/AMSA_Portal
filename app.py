@@ -1,3 +1,64 @@
+import os
+import sqlite3
+
+DB = "amsa.db"
+
+def init_db():
+    conn = sqlite3.connect(DB)
+    cur = conn.cursor()
+
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE,
+        password TEXT,
+        role TEXT
+    )
+    """)
+
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS logs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        fecha TEXT,
+        usuario TEXT,
+        accion TEXT,
+        detalle TEXT
+    )
+    """)
+
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS form (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        fecha TEXT,
+        usuario TEXT,
+        ritm TEXT,
+        tipo_equipo TEXT,
+        marca TEXT,
+        modelo TEXT,
+        serie TEXT,
+        hostname TEXT,
+        asset TEXT,
+        estado TEXT,
+        ubicacion TEXT,
+        observaciones TEXT
+    )
+    """)
+
+    # admin por defecto
+    cur.execute("SELECT id FROM users WHERE username='admin'")
+    if not cur.fetchone():
+        import bcrypt
+        pw = bcrypt.hashpw("1234".encode(), bcrypt.gensalt()).decode()
+        cur.execute(
+            "INSERT INTO users (username, password, role) VALUES (?,?,?)",
+            ("admin", pw, "admin")
+        )
+
+    conn.commit()
+    conn.close()
+
+# EJECUTAR SIEMPRE AL INICIO
+init_db()
 import streamlit as st
 import streamlit.components.v1 as components
 import sqlite3
